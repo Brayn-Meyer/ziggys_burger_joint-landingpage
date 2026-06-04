@@ -188,7 +188,7 @@ export const siteConfig = {
   location: {
     address: "495 Imam Haron Rd, Lansdowne, Cape Town, 7780",
     googleMapsUrl: "https://maps.app.goo.gl/A85GcSkX2NhZHvHz5",
-    mapEmbedUrl: "https://www.google.com/maps?q=-33.9892698,18.5001025&output=embed",
+    mapEmbedUrl: "https://www.google.com/maps?q=-33.9892698,18.5026774&output=embed",
     parkingNote: "Street parking available on Imam Haron Rd.",
     accessibilityNote: "",
     paymentMethods: ["Cash", "Visa", "Mastercard", "Tap", "EFT"],
