@@ -3,6 +3,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { siteConfig } from "@/siteConfig";
 import { SocialIcons } from "./SocialIcons";
+import { CartButton } from "./ui/CartButton";  // 👈 new import
 import { createImagePlaceholder, setImageFallback } from "@/lib/utils";
 
 type SubLink = { label: string; to: string; hash?: string };
@@ -111,8 +112,9 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="hidden h-9 shrink-0 items-center lg:flex">
+        <div className="hidden h-9 shrink-0 items-center gap-3 lg:flex">
           <SocialIcons variant="color" size={18} />
+          <CartButton />   {/* 👈 added */}
         </div>
 
         <button

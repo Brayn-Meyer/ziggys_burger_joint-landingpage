@@ -1,6 +1,9 @@
 import {
-  Outlet, createRootRouteWithContext,
-  HeadContent, Scripts, Link,
+  Outlet,
+  createRootRouteWithContext,
+  HeadContent,
+  Scripts,
+  Link,
 } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import appCss from "../styles.css?url";
@@ -15,16 +18,34 @@ import { useHashScroll } from "@/lib/hooks";
 import { siteConfig } from "@/siteConfig";
 import { getThemeStyleVars } from "@/lib/utils";
 
+// 👇 New imports for cart
+import { CartProvider } from "@/context/CartContext";
+import { ToastContainer } from "@/components/ui/Toast";
+
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-black tracking-[0.02em]" style={{ color: "var(--brand-primary)" }}>404</h1>
-        <p className="mt-4 uppercase tracking-[0.08em]" style={{ color: "var(--ui-text-muted)" }}>This page wandered off the grill.</p>
+        <h1
+          className="text-7xl font-black tracking-[0.02em]"
+          style={{ color: "var(--brand-primary)" }}
+        >
+          404
+        </h1>
+        <p
+          className="mt-4 uppercase tracking-[0.08em]"
+          style={{ color: "var(--ui-text-muted)" }}
+        >
+          This page wandered off the grill.
+        </p>
         <Link
           to="/"
           className="mt-6 inline-block rounded-full px-5 py-2.5 font-bold uppercase tracking-[0.12em]"
-          style={{ background: "linear-gradient(135deg, var(--brand-primary), var(--status-warning))", color: "var(--brand-on-primary)" }}
+          style={{
+            background:
+              "linear-gradient(135deg, var(--brand-primary), var(--status-warning))",
+            color: "var(--brand-on-primary)",
+          }}
         >
           Back home
         </Link>
@@ -38,12 +59,25 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-black uppercase tracking-[0.08em]">This page didn't load</h1>
-        <p className="mt-2 text-sm uppercase tracking-[0.08em]" style={{ color: "var(--ui-text-muted)" }}>Try again in a sec.</p>
+        <h1 className="text-xl font-black uppercase tracking-[0.08em]">
+          This page didn't load
+        </h1>
+        <p
+          className="mt-2 text-sm uppercase tracking-[0.08em]"
+          style={{ color: "var(--ui-text-muted)" }}
+        >
+          Try again in a sec.
+        </p>
         <button
-          onClick={() => { reset(); }}
+          onClick={() => {
+            reset();
+          }}
           className="mt-6 rounded-full px-5 py-2.5 font-bold uppercase tracking-[0.12em]"
-          style={{ background: "linear-gradient(135deg, var(--brand-primary), var(--status-warning))", color: "var(--brand-on-primary)" }}
+          style={{
+            background:
+              "linear-gradient(135deg, var(--brand-primary), var(--status-warning))",
+            color: "var(--brand-on-primary)",
+          }}
         >
           Try again
         </button>
@@ -57,11 +91,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: `${siteConfig.restaurantName} | Crafted with Fire, Served with Heart` },
-      { name: "description", content: `Bold burgers, loaded sides, and proper grill energy at ${siteConfig.restaurantName}.` },
+      {
+        title: `${siteConfig.restaurantName} | Crafted with Fire, Served with Heart`,
+      },
+      {
+        name: "description",
+        content: `Bold burgers, loaded sides, and proper grill energy at ${siteConfig.restaurantName}.`,
+      },
       { name: "author", content: siteConfig.restaurantName },
-      { property: "og:title", content: `${siteConfig.restaurantName} | Crafted with Fire, Served with Heart` },
-      { property: "og:description", content: `Big flavors, loud energy, and no-fuss burger nights at ${siteConfig.restaurantName}.` },
+      {
+        property: "og:title",
+        content: `${siteConfig.restaurantName} | Crafted with Fire, Served with Heart`,
+      },
+      {
+        property: "og:description",
+        content: `Big flavors, loud energy, and no-fuss burger nights at ${siteConfig.restaurantName}.`,
+      },
       { property: "og:type", content: "website" },
       { property: "og:image", content: siteConfig.heroImage },
       { name: "twitter:card", content: "summary_large_image" },
@@ -70,8 +115,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: logoFavicon },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@400;500;600;700;800&display=swap" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800;900&family=Barlow:wght@400;500;600;700;800&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -115,7 +167,10 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
-      <AppShell />
+      <CartProvider>
+        <AppShell />
+        <ToastContainer />
+      </CartProvider>
     </QueryClientProvider>
   );
 }

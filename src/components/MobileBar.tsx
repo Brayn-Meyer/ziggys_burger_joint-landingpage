@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Calendar, BookOpen, Phone } from "lucide-react";
 import { siteConfig } from "@/siteConfig";
+import { CartButton } from "./ui/CartButton";  // 👈 new import
 
 export function MobileBar() {
   if (!siteConfig.sections.mobileBar) return null;
@@ -38,6 +39,16 @@ export function MobileBar() {
           Menu
         </Link>
       )}
+      {/* 👇 Cart button added here */}
+      <div
+        className="flex min-h-[58px] flex-1 flex-col items-center gap-1 border-x py-3"
+        style={{ borderColor: "var(--ui-border)" }}
+      >
+        <CartButton />
+        <span className="text-xs font-bold uppercase tracking-[0.12em]" style={{ color: "var(--ui-text)" }}>
+          Cart
+        </span>
+      </div>
       {showCall && (
         <a
           href={`tel:${siteConfig.contact.phone}`}

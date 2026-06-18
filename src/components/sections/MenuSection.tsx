@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { siteConfig, type MenuTag, type MenuEntry } from "@/siteConfig";
 import { Search, UtensilsCrossed } from "lucide-react";
 import { createImagePlaceholder, isFilled, setImageFallback } from "@/lib/utils";
+import { AddToCartButton } from "@/components/ui/AddToCartButton";  // 👈 new import
 
 const CATEGORY_IDS: Record<string, string> = {
   Grills: "grills",
@@ -51,7 +52,6 @@ export function MenuSection() {
   if (!showMenuGrid && !showTastingMenu) return null;
 
   return (
-    
     <section id="menu-grid" className="px-4 py-14">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8 text-center">
@@ -208,6 +208,10 @@ function MenuCard({ m }: { m: MenuEntry }) {
               {t}
             </span>
           ))}
+        </div>
+        {/* 👇 Add to Cart button */}
+        <div className="mt-3">
+          <AddToCartButton item={m} />
         </div>
         {m.pairingNote && (
           <p className="mt-2 text-xs font-medium uppercase tracking-[0.06em]" style={{ color: "var(--ui-text-subtle)" }}>
